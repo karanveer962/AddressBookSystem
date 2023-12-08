@@ -1,6 +1,14 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBook {
+
+    public static List<Person> searchPersonsInCityAndState(String city, String state, AddressBookRecords system) {
+        return system.getAddressBooks().values().stream()
+        .flatMap(contactBook -> contactBook.searchPersonsInCityAndState(city, state).stream())
+        .collect(Collectors.toList());
+    }
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -13,10 +21,15 @@ public class AddressBook {
         ContactBook cb = system.getAddressBook("Friends");
         cb.addContact(person1);
         cb.addContact(person2);
-        cb.addContact(person1);
+        cb.addContact(person3);
         // cb.editContact(person1.getFirstName());
         // cb.deleteContact(person2.getFirstName());
-        cb.getAllContacts();
+        // cb.getAllContacts();
 
+
+
+        List<Person> personsInCityAndState = searchPersonsInCityAndState("city", "state", system);
+        System.out.println("Persons with given city and state are : ");
+        personsInCityAndState.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
     }
-}
+    }

@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class ContactBook {
     private List<Person> contacts;
@@ -76,5 +77,12 @@ class ContactBook {
         for(Person it:contacts){
             System.out.println(it.getFirstName()+" "+it.getLastName()+" "+it.getPhoneNumber());
         }
+    }
+
+    public List<Person> searchPersonsInCityAndState(String city, String state) {
+        return contacts.stream()
+                .filter(person -> ( person.getCity().equalsIgnoreCase(city))
+                        || ( person.getState().equalsIgnoreCase(state)))
+                .collect(Collectors.toList());
     }
 }

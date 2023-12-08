@@ -15,4 +15,10 @@ class AddressBookRecords {
     public ContactBook getAddressBook(String addressBookName) {
         return addressBooks.get(addressBookName);
     }
+    public Map<String, ContactBook> getAddressBooks() {
+        // for(String it: addressBooks.keySet()){
+        //     System.out.println(it);
+        // }
+        return addressBooks;
+    }
 }
