@@ -4,10 +4,12 @@ import java.util.stream.Collectors;
 class ContactBook {
     private List<Person> contacts;
     private Map<String, Person> contactsByName;
+    private AddressBookRecords addressBookRecords;
 
-    public ContactBook() {
+    public ContactBook(AddressBookRecords addressBookRecords) {
         this.contacts = new ArrayList<>();
         this.contactsByName = new HashMap<>();
+        this.addressBookRecords = addressBookRecords;
     }
 
     public void addContact(Person person) {
@@ -16,6 +18,7 @@ class ContactBook {
         } else {
         contacts.add(person);
         contactsByName.put(person.getFirstName(), person);
+        addressBookRecords.addPersonToDictionaries(person);
         System.out.println("Contact added successfully.");
         }
     }
