@@ -28,7 +28,7 @@ class ContactBook {
     public void sortContactsByZip() {
         contacts.sort(Comparator.comparing(Person::getZip));
     }
-    
+
     public void addContact(Person person) {
         if (contacts.stream().anyMatch(p -> p.equals(person))) {
             System.out.println("Duplicate entry! Person with the same name already exists.");
@@ -92,11 +92,17 @@ class ContactBook {
         contactsByName.remove(firstName);
         System.out.println("Contact deleted Successfully");
     }
-    public void getAllContacts(){
+    public void displayAllContacts(){
         System.out.println("All Contacts: ");
         for(Person it:contacts){
             System.out.println(it.getFirstName()+" "+it.getLastName()+" "+it.getPhoneNumber());
         }
+    }
+    public List<Person> getContacts(){
+        return contacts;
+    }
+    public void setContacts(List<Person> new_contacts){
+        this.contacts=new_contacts;
     }
 
     public List<Person> searchPersonsInCityAndState(String city, String state) {

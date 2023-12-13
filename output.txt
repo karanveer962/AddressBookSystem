@@ -1,0 +1,3 @@
+{f_name='Karanveer', l_name='Singh', address='address', city='kanpur', state='up', zip='208006', phnum='874865845', email='email'}
+{f_name='Rajat', l_name='Branwal', address='address', city='lucknow', state='mp', zip='208001', phnum='3435974584', email='email'}
+{f_name='Priyanshu', l_name='Yadav', address='address', city='agra', state='ap', zip='208003', phnum='8897453743', email='email'}

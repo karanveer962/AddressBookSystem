@@ -1,5 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.io.*;
+
 
 public class AddressBook {
 
@@ -35,7 +37,59 @@ public class AddressBook {
     public static void sortAddressBookByZip(AddressBookRecords system, String addressBookName) {
         system.getAddressBook(addressBookName).sortContactsByZip();
     }
+    
+      //writing to a file
+    public static void writeAddressBookToFile(AddressBookRecords system, String addressBookName, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            ContactBook contactBook = system.getAddressBook(addressBookName);
+            List<Person> contacts = contactBook.getContacts();
+            for (Person person : contacts) {
+                writer.write(person.toString());
+                writer.newLine();  
+            }
+            System.out.println("Address book written to file successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+    }
 
+    //reading from a file
+    public static List<Person> readAddressBookFromFile(String fileName) {
+        List<Person> persons = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Person person = stringToPerson(line);
+                persons.add(person);
+            }
+            System.out.println("\nAddress book read from " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return persons;
+    }
+    private static Person stringToPerson(String line) {
+       
+        String[] keyValuePairs = line.split(", ");
+        Map<String, String> attributes = new HashMap<>();
+    
+        for (String pair : keyValuePairs) {
+            String[] keyValue = pair.split("=");
+            if (keyValue.length == 2) {
+                attributes.put(keyValue[0], keyValue[1].replace("'", ""));
+            }
+        }
+        return new Person(
+                attributes.get("{f_name"),
+                attributes.get("l_name"),
+                attributes.get("address"),
+                attributes.get("city"),
+                attributes.get("state"),
+                attributes.get("zip"),
+                attributes.get("phnum"),
+                attributes.get("email")
+        );
+    }
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -51,16 +105,8 @@ public class AddressBook {
         cb.addContact(person3);
 
     
-        System.out.println("\nSorted by City:"); //sorted by city
-        sortAddressBookByCity(system, "Friends");
-        system.getAddressBook("Friends").getAllContacts();
-    
-        System.out.println("\nSorted by State:"); //sorted by state
-        sortAddressBookByState(system, "Friends");
-        system.getAddressBook("Friends").getAllContacts();
-    
-        System.out.println("\nSorted by Zip:"); //sorted by zip
-        sortAddressBookByZip(system, "Friends");
-        system.getAddressBook("Friends").getAllContacts();
+        writeAddressBookToFile(system, "Friends", "output.txt");
+         List<Person> persons=readAddressBookFromFile("output.txt");
+         persons.forEach(System.out::println);
     }
 }
