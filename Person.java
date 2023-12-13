@@ -87,4 +87,18 @@ class Person {
     public int hashCode() {
         return Objects.hash(f_name);
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "f_name='" + f_name + '\'' +
+                ", l_name='" + l_name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", phnum='" + phnum + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

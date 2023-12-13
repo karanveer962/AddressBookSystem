@@ -17,6 +17,13 @@ public class AddressBook {
         return system.viewPersonsByState(state);
     }
 
+    public static List<Person> sortPersonsByName(AddressBookRecords system) {
+        return system.getAddressBooks().values().stream()
+                .flatMap(ContactBook::getContactsStream)
+                .sorted(Comparator.comparing(Person::getFirstName))
+                .collect(Collectors.toList());
+    }
+
     public static void main(String[] args) {
 
 
@@ -32,16 +39,10 @@ public class AddressBook {
         cb.addContact(person2);
         cb.addContact(person3);
 
-        // cb.editContact(person1.getFirstName());
-        // cb.deleteContact(person2.getFirstName());
-        // cb.getAllContacts();
 
-         System.out.println("\nOn the basis of City:");
-         List<Person> personsByCity = viewPersonsByCity("city", system);
-         personsByCity.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
-
-         System.out.println("\nOn the basis of State: ");
-         List<Person> personsByState = viewPersonsByState("state", system);
-         personsByState.forEach(person -> System.out.println(person.getFirstName() + " " + person.getLastName()));
+          // Sorting entries by name
+        System.out.println("\nSorted Entries by Name:");
+        List<Person> sortedPersons = sortPersonsByName(system);
+        sortedPersons.forEach(System.out::println);
     }
  }

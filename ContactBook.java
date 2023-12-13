@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class ContactBook {
     private List<Person> contacts;
@@ -10,6 +11,10 @@ class ContactBook {
         this.contacts = new ArrayList<>();
         this.contactsByName = new HashMap<>();
         this.addressBookRecords = addressBookRecords;
+    }
+    
+    public Stream<Person> getContactsStream() {
+        return contacts.stream();
     }
 
     public void addContact(Person person) {
