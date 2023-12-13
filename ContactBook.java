@@ -17,6 +17,18 @@ class ContactBook {
         return contacts.stream();
     }
 
+    public void sortContactsByCity() {
+        contacts.sort(Comparator.comparing(Person::getCity));
+    }
+
+    public void sortContactsByState() {
+        contacts.sort(Comparator.comparing(Person::getState));
+    }
+
+    public void sortContactsByZip() {
+        contacts.sort(Comparator.comparing(Person::getZip));
+    }
+    
     public void addContact(Person person) {
         if (contacts.stream().anyMatch(p -> p.equals(person))) {
             System.out.println("Duplicate entry! Person with the same name already exists.");
